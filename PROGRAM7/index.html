@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #3a7bd5;
+}
+
+#display {
+    font-size: 4em;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    border: 3px solid #3a7bd5;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 250px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.start {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.start:hover {
+    background-color: #45a049;
+}
+
+.stop {
+    background-color: #f44336;
+    color: white;
+}
+
+.stop:hover {
+    background-color: #e53935;
+}
+
+.reset {
+    background-color: #ff9800;
+    color: white;
+}
+
+.reset:hover {
+    background-color: #fb8c00;
+}
+</style>
+<body>
+
+    <h2>Stopwatch</h2>
+    <p id="display">00:00</p>
+    <div class="controls">
+        <button onclick="start()" class="start">Start</button>
+        <button onclick="stop()" class="stop">Stop</button>
+        <button onclick="reset()" class="reset">Reset</button>
+    </div>
+
+
+   <script> 
+    let seconds = 0;
+let intervalId = null;
+
+function updateDisplay() {
+    const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const secs = String(seconds % 60).padStart(2, '0');
+    document.getElementById("display").textContent = `${mins}:${secs}`;
+}
+
+function start() {
+    if (!intervalId) {
+        intervalId = setInterval(() => {
+            seconds++;
+            updateDisplay();
+        }, 1000);
+    }
+}
+
+function stop() {
+    clearInterval(intervalId);
+    intervalId = null;
+}
+
+function reset() {
+    stop();
+    seconds = 0;
+    updateDisplay();
+}
+   </script>
+</body>
+
+</html>
